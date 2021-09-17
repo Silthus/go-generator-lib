@@ -34,12 +34,10 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: Make binaries
-        uses: sosedoff/actions/golang-build@master
       - uses: actions/setup-node@v1
         with:
           node-version: 12
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: npx -p @semantic-release/changelog -p @semantic-release/git -p semantic-release semantic-release
